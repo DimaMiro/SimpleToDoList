@@ -20,6 +20,8 @@ class CategoryViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
         loadCategories()
         
         self.tableView.tableFooterView = UIView()
@@ -59,6 +61,26 @@ class CategoryViewController: UITableViewController {
         categories = realm.objects(Category.self)
         tableView.reloadData()
 
+    }
+    
+    //MARK: - Delete Data From Swipe
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            guard let categoryForDeletion = self.categories?[indexPath.row] else {fatalError()}
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryForDeletion)
+                }
+            } catch {
+                print("Error deleting category, \(error)")
+            }
+            tableView.reloadData()
+        }
     }
     
     //MARK: - Add New Category Method
