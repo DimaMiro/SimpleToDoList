@@ -23,7 +23,11 @@ class ToDoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+        //Setup Navigation Bar
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
         self.tableView.tableFooterView = UIView()
 
     }
@@ -139,7 +143,7 @@ class ToDoListViewController: UITableViewController {
     
     
     func loadItems() {
-        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
     }
 }
@@ -151,8 +155,11 @@ extension ToDoListViewController: UISearchBarDelegate {
         todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
+    
+    
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
         if searchBar.text?.count == 0 {
             loadItems()
 

@@ -58,7 +58,7 @@ class CategoryViewController: UITableViewController {
     
     func loadCategories() {
         
-        categories = realm.objects(Category.self)
+        categories = realm.objects(Category.self).sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
 
     }
@@ -95,7 +95,9 @@ class CategoryViewController: UITableViewController {
                 
                 let newCategory = Category()
                 newCategory.name = textField.text!
+                newCategory.dateCreated = Date()
                 self.save(category: newCategory)
+                
                 
             } else {
                 
