@@ -17,12 +17,25 @@ class CategoryViewController: UITableViewController {
 
     
     var categories: Results<Category>?
+    
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         loadCategories()
+        
+        //Set tableView backgroundImage
+        let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.tableView.backgroundView = backgroundImage
+        
+        
         
         self.tableView.tableFooterView = UIView()
     }
@@ -41,6 +54,7 @@ class CategoryViewController: UITableViewController {
         
         return cell
     }
+    
     
     //MARK: - Data Manipulation Methods
     func save(category: Category) {
@@ -130,6 +144,14 @@ class CategoryViewController: UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = categories?[indexPath.row]
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52.0
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
     }
 }
 

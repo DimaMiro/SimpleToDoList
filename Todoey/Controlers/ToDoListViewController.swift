@@ -20,13 +20,20 @@ class ToDoListViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Setup Navigation Bar
+        //Setup SearchBar
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor(red:1, green:218/255, blue:73/255, alpha:1).cgColor
+        
+        //Set tableView backgroundImage
+        let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.tableView.backgroundView = backgroundImage
         
         self.tableView.tableFooterView = UIView()
 
@@ -68,11 +75,16 @@ class ToDoListViewController: UITableViewController {
         
         tableView.reloadData()
         
-//
-//        todoItems[indexPath.row].isDone = !todoItems[indexPath.row].isDone
-//        saveItems()
-//
         tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52.0
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
     }
     
     //MARK: - Delete Data From Swipe
@@ -151,15 +163,15 @@ class ToDoListViewController: UITableViewController {
 extension ToDoListViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+
         todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
-    
-    
+
+
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+
         if searchBar.text?.count == 0 {
             loadItems()
 
