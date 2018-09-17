@@ -19,13 +19,16 @@ class CategoryViewController: UITableViewController {
     var categories: Results<Category>?
     
     
-        
+    override func viewWillAppear(_ animated: Bool) {
+        // This must to be added for reloading this tableView once Back button in items is pressed.
+        tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // Remove line on bottom of navitaionBar
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
+        // Get the path to realm db file
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         loadCategories()
@@ -49,8 +52,15 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No categories added yet"
+        if let containedItems = categories?[indexPath.row].items.count {
+            if containedItems != 0 {
+                cell.detailTextLabel?.text = "\(containedItems) items"
+            } else {
+                cell.detailTextLabel?.text = ""
+            }
+        }
+        
         
         return cell
     }
