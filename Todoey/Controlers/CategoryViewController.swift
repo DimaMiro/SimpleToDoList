@@ -88,6 +88,8 @@ class CategoryViewController: UITableViewController {
             guard let categoryForDeletion = self.categories?[indexPath.row] else {fatalError()}
             do {
                 try self.realm.write {
+                    
+                    self.realm.delete(categoryForDeletion.items)
                     self.realm.delete(categoryForDeletion)
                 }
             } catch {
