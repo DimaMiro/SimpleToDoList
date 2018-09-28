@@ -32,11 +32,14 @@ class ToDoListViewController: UITableViewController {
         
         //Set tableView backgroundImage
         let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         self.tableView.backgroundView = backgroundImage
         
         self.tableView.tableFooterView = UIView()
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
     }
 
     //MARK: - TableView Datasource Method
@@ -50,6 +53,7 @@ class ToDoListViewController: UITableViewController {
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+//            cell.editingAccessoryType = item.isDone ? .checkmark : .none
             cell.accessoryType = item.isDone ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added yet"
@@ -62,7 +66,7 @@ class ToDoListViewController: UITableViewController {
     //MARK: - TableView Delegate Method
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         if let item = todoItems?[indexPath.row] {
             do {
                 try realm.write {
@@ -72,11 +76,11 @@ class ToDoListViewController: UITableViewController {
                 print("Error changing done status \(error)")
             }
         }
-        
+
         tableView.reloadData()
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,7 +97,7 @@ class ToDoListViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             guard let item = todoItems?[indexPath.row] else {fatalError()}
             do {

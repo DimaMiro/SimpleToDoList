@@ -35,7 +35,7 @@ class CategoryViewController: UITableViewController {
         
         //Set tableView backgroundImage
         let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         self.tableView.backgroundView = backgroundImage
         
         
@@ -93,7 +93,7 @@ class CategoryViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             guard let categoryForDeletion = self.categories?[indexPath.row] else {fatalError()}
             do {
@@ -117,7 +117,7 @@ class CategoryViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
-            if textField.text != " " {
+            if textField.text != " " &&  textField.text != "" {
                 
                 let newCategory = Category()
                 newCategory.name = textField.text!
