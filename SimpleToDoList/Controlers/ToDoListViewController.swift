@@ -1,6 +1,6 @@
 //
 //  ToDoListViewController.swift
-//  Todoey
+//  SimpleToDoList
 //
 //  Created by Dima Miro on 28.07.2018.
 //  Copyright © 2018 Dima Miro. All rights reserved.
@@ -53,7 +53,6 @@ class ToDoListViewController: UITableViewController {
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
-//            cell.editingAccessoryType = item.isDone ? .checkmark : .none
             cell.accessoryType = item.isDone ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added yet"

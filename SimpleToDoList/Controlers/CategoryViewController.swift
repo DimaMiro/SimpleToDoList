@@ -1,6 +1,6 @@
 //
 //  CategoryViewController.swift
-//  Todoey
+//  SimpleToDoList
 //
 //  Created by Dima Miro on 11.08.2018.
 //  Copyright © 2018 Dima Miro. All rights reserved.
