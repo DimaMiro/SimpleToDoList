@@ -1,6 +1,6 @@
 //
 //  CategoryViewController.swift
-//  SimpleToDoList
+//  SimpleToDoList   
 //
 //  Created by Dima Miro on 11.08.2018.
 //  Copyright © 2018 Dima Miro. All rights reserved.
@@ -11,7 +11,7 @@ import RealmSwift
 
 class CategoryViewController: UITableViewController {
     
-    lazy var realm:Realm = {
+    lazy var realm: Realm = {
         return try! Realm()
     }()
 
@@ -20,7 +20,6 @@ class CategoryViewController: UITableViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        // This must to be added for reloading this tableView once Back button in items is pressed.
         tableView.reloadData()
     }
     override func viewDidLoad() {

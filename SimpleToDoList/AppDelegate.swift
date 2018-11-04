@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  SimpleToDoList
+//  SimpleToDoList  
 //
 //  Created by Dima Miro on 28.07.2018.
 //  Copyright © 2018 Dima Miro. All rights reserved.
@@ -17,10 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
-        
         //Setup Realm Database
-        
         let config = Realm.Configuration(
             schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
@@ -29,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
 
         Realm.Configuration.defaultConfiguration = config
-
-        
         do {
             _ = try Realm()
         } catch {

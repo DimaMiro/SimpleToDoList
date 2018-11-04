@@ -1,6 +1,6 @@
 //
 //  Category.swift
-//  SimpleToDoList
+//  SimpleToDoList  
 //
 //  Created by Dima Miro on 19.08.2018.
 //  Copyright © 2018 Dima Miro. All rights reserved.
